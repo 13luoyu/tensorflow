@@ -20,17 +20,12 @@ print(try_gpu(), try_gpu(10), try_all_gpus())
 
 
 
-x = tf.constant([1, 2, 3])
-print(x.device)  # 直接就在GPU上了
-
-with tf.device("/CPU:0"):
-    x = tf.ones((2,3))  # 在CPU上创建张量
-print(x.device)
+x1 = tf.constant([1, 2, 3], dtype=tf.float32)
+print(x1.device)  # 默认在CPU上了
 
 with try_gpu():
     x = tf.ones((2,3))  # 在GPU上创建张量
 print(x.device)
-
 
 # 在GPU上创建网络
 # tf.distribute.MirroredStrategy 支持在单机多GPU上的同步分布式训练. 它在每个GPU设备上创建一个副本. 模型中的每个变量都将在所有副本之间进行镜像。
